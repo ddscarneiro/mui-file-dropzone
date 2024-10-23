@@ -1,6 +1,6 @@
 {
   "name": "mui-file-dropzone-v6",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "A Material-UI file-upload dropzone. Written in TypeScript.",
   "license": "MIT",
   "author": "Yuval",
