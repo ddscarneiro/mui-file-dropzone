@@ -1,6 +1,6 @@
 {
   "name": "mui-file-dropzone-v6",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "A Material-UI file-upload dropzone. Written in TypeScript.",
   "license": "MIT",
   "author": "Yuval",
@@ -43,8 +43,8 @@
     "react-dropzone": "^10.2.1"
   },
   "peerDependencies": {
-    "@mui/icons-material": "^5.0.0",
-    "@mui/material": "^5.0.0",
+    "@mui/icons-material": "^6.0.0",
+    "@mui/material": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": ">= 17.0",
     "react-dom": ">= 17.0"
@@ -53,8 +53,8 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-typescript": "^7.13.0",
-    "@mui/icons-material": "^6.1.4",
-    "@mui/material": "^6.1.4",
+    "@mui/icons-material": "^6.1.5",
+    "@mui/material": "^6.1.5",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "babel-loader": "^8.1.0",
