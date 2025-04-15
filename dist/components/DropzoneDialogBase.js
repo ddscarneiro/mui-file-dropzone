@@ -1,18 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const Button_1 = (0, tslib_1.__importDefault)(require("@mui/material/Button"));
-const Dialog_1 = (0, tslib_1.__importDefault)(require("@mui/material/Dialog"));
-const DialogActions_1 = (0, tslib_1.__importDefault)(require("@mui/material/DialogActions"));
-const DialogContent_1 = (0, tslib_1.__importDefault)(require("@mui/material/DialogContent"));
-const DialogTitle_1 = (0, tslib_1.__importDefault)(require("@mui/material/DialogTitle"));
-const prop_types_1 = (0, tslib_1.__importDefault)(require("prop-types"));
-const react_1 = (0, tslib_1.__importStar)(require("react"));
-const DropzoneAreaBase_1 = (0, tslib_1.__importDefault)(require("./DropzoneAreaBase"));
+import { __rest } from "tslib";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import DropzoneAreaBase from "./DropzoneAreaBase";
 // Split props related to DropzoneDialog from DropzoneArea ones
 function splitDropzoneDialogProps(allProps) {
     const defaults = DropzoneDialogBase.defaultProps;
-    const { cancelButtonText = defaults.cancelButtonText, dialogProps = defaults.dialogProps, dialogTitle = defaults.dialogTitle, fullWidth = defaults.fullWidth, maxWidth = defaults.maxWidth, onClose, onSave, open = defaults.open, submitButtonText = defaults.submitButtonText } = allProps, dropzoneAreaProps = (0, tslib_1.__rest)(allProps, ["cancelButtonText", "dialogProps", "dialogTitle", "fullWidth", "maxWidth", "onClose", "onSave", "open", "submitButtonText"]);
+    const { cancelButtonText = defaults.cancelButtonText, dialogProps = defaults.dialogProps, dialogTitle = defaults.dialogTitle, fullWidth = defaults.fullWidth, maxWidth = defaults.maxWidth, onClose, onSave, open = defaults.open, submitButtonText = defaults.submitButtonText } = allProps, dropzoneAreaProps = __rest(allProps, ["cancelButtonText", "dialogProps", "dialogTitle", "fullWidth", "maxWidth", "onClose", "onSave", "open", "submitButtonText"]);
     const dropzoneDialogProps = {
         cancelButtonText,
         dialogProps,
@@ -32,7 +30,7 @@ function splitDropzoneDialogProps(allProps) {
  *
  * It supports all the Props and Methods from `DropzoneAreaBase`.
  */
-class DropzoneDialogBase extends react_1.PureComponent {
+class DropzoneDialogBase extends PureComponent {
     constructor() {
         super(...arguments);
         this.handlePressClose = (e) => {
@@ -45,16 +43,16 @@ class DropzoneDialogBase extends react_1.PureComponent {
         const { cancelButtonText, dialogProps, dialogTitle, fullWidth, maxWidth, onClose, onSave, open, submitButtonText, } = dropzoneDialogProps;
         // Submit button state
         const submitDisabled = dropzoneAreaProps.fileObjects.length === 0;
-        return (react_1.default.createElement(Dialog_1.default, Object.assign({}, dialogProps, { fullWidth: fullWidth, maxWidth: maxWidth, onClose: onClose, open: open }),
-            react_1.default.createElement(DialogTitle_1.default, null, dialogTitle),
-            react_1.default.createElement(DialogContent_1.default, null,
-                react_1.default.createElement(DropzoneAreaBase_1.default, Object.assign({}, dropzoneAreaProps))),
-            react_1.default.createElement(DialogActions_1.default, null,
-                react_1.default.createElement(Button_1.default, { onClick: this.handlePressClose }, cancelButtonText),
-                react_1.default.createElement(Button_1.default, { variant: "contained", disabled: submitDisabled, onClick: onSave }, submitButtonText))));
+        return (React.createElement(Dialog, Object.assign({}, dialogProps, { fullWidth: fullWidth, maxWidth: maxWidth, onClose: onClose, open: open }),
+            React.createElement(DialogTitle, null, dialogTitle),
+            React.createElement(DialogContent, null,
+                React.createElement(DropzoneAreaBase, Object.assign({}, dropzoneAreaProps))),
+            React.createElement(DialogActions, null,
+                React.createElement(Button, { onClick: this.handlePressClose }, cancelButtonText),
+                React.createElement(Button, { variant: "contained", disabled: submitDisabled, onClick: onSave }, submitButtonText))));
     }
 }
-DropzoneDialogBase.propTypes = Object.assign(Object.assign({}, DropzoneAreaBase_1.default.propTypes), { open: prop_types_1.default.bool, dialogTitle: prop_types_1.default.oneOfType([prop_types_1.default.string, prop_types_1.default.element]), dialogProps: prop_types_1.default.object, fullWidth: prop_types_1.default.bool, maxWidth: prop_types_1.default.string, cancelButtonText: prop_types_1.default.string, submitButtonText: prop_types_1.default.string, onClose: prop_types_1.default.func, onSave: prop_types_1.default.func, showPreviews: prop_types_1.default.bool, showPreviewsInDropzone: prop_types_1.default.bool, showFileNamesInPreview: prop_types_1.default.bool });
+DropzoneDialogBase.propTypes = Object.assign(Object.assign({}, DropzoneAreaBase.propTypes), { open: PropTypes.bool, dialogTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]), dialogProps: PropTypes.object, fullWidth: PropTypes.bool, maxWidth: PropTypes.string, cancelButtonText: PropTypes.string, submitButtonText: PropTypes.string, onClose: PropTypes.func, onSave: PropTypes.func, showPreviews: PropTypes.bool, showPreviewsInDropzone: PropTypes.bool, showFileNamesInPreview: PropTypes.bool });
 DropzoneDialogBase.defaultProps = {
     open: false,
     dialogTitle: "Upload file",
@@ -67,5 +65,5 @@ DropzoneDialogBase.defaultProps = {
     showPreviewsInDropzone: false,
     showFileNamesInPreview: true,
 };
-exports.default = DropzoneDialogBase;
+export default DropzoneDialogBase;
 //# sourceMappingURL=DropzoneDialogBase.js.map

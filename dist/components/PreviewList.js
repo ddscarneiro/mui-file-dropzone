@@ -1,23 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const Delete_1 = (0, tslib_1.__importDefault)(require("@mui/icons-material/Delete"));
-const Box_1 = (0, tslib_1.__importDefault)(require("@mui/material/Box"));
-const Chip_1 = (0, tslib_1.__importDefault)(require("@mui/material/Chip"));
-const Fab_1 = (0, tslib_1.__importDefault)(require("@mui/material/Fab"));
-const Typography_1 = (0, tslib_1.__importDefault)(require("@mui/material/Typography"));
-const clsx_1 = (0, tslib_1.__importDefault)(require("clsx"));
-const prop_types_1 = (0, tslib_1.__importDefault)(require("prop-types"));
-const react_1 = (0, tslib_1.__importStar)(require("react"));
+import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Fab from "@mui/material/Fab";
+import Typography from "@mui/material/Typography";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React, { useMemo } from "react";
 function PreviewList(props) {
     const { fileObjects, handleRemove, showFileNames, useChipsForPreview, previewChipProps, previewGridClasses, previewGridProps, classes, getPreviewIcon, } = props;
-    const sxGridContainer = (0, react_1.useMemo)(() => ({
+    const sxGridContainer = useMemo(() => ({
         display: "flex",
         flexWrap: "wrap",
         width: "100%",
         gap: useChipsForPreview ? 1 : 8,
     }), [useChipsForPreview]);
-    const sxImageContainer = (0, react_1.useMemo)(() => ({
+    const sxImageContainer = useMemo(() => ({
         position: "relative",
         zIndex: 10,
         textAlign: "center",
@@ -40,7 +37,7 @@ function PreviewList(props) {
             opacity: 1,
         },
     }), []);
-    const sxRemoveButton = (0, react_1.useMemo)(() => ({
+    const sxRemoveButton = useMemo(() => ({
         transition: ".5s ease",
         position: "absolute",
         opacity: 0,
@@ -53,29 +50,29 @@ function PreviewList(props) {
         },
     }), []);
     if (useChipsForPreview) {
-        return (react_1.default.createElement(Box_1.default, Object.assign({ sx: sxGridContainer }, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.container, { className: (0, clsx_1.default)(classes === null || classes === void 0 ? void 0 : classes.root, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.container) }), fileObjects.map((fileObject, i) => {
-            return (react_1.default.createElement(Box_1.default, Object.assign({}, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.item, { key: i, sx: sxImageContainer, className: classes === null || classes === void 0 ? void 0 : classes.imageContainer }),
-                react_1.default.createElement(Chip_1.default, Object.assign({ variant: "outlined" }, previewChipProps, { label: fileObject.file.name, onDelete: handleRemove(i) }))));
+        return (React.createElement(Box, Object.assign({ sx: sxGridContainer }, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.container, { className: clsx(classes === null || classes === void 0 ? void 0 : classes.root, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.container) }), fileObjects.map((fileObject, i) => {
+            return (React.createElement(Box, Object.assign({}, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.item, { key: i, sx: sxImageContainer, className: classes === null || classes === void 0 ? void 0 : classes.imageContainer }),
+                React.createElement(Chip, Object.assign({ variant: "outlined" }, previewChipProps, { label: fileObject.file.name, onDelete: handleRemove(i) }))));
         })));
     }
-    return (react_1.default.createElement(Box_1.default, Object.assign({ sx: sxGridContainer }, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.container, { className: (0, clsx_1.default)(classes === null || classes === void 0 ? void 0 : classes.root, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.container) }), fileObjects.map((fileObject, i) => {
-        return (react_1.default.createElement(Box_1.default, Object.assign({}, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.item, { key: i, sx: sxImageContainer, className: (0, clsx_1.default)(classes === null || classes === void 0 ? void 0 : classes.imageContainer, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.item) }),
+    return (React.createElement(Box, Object.assign({ sx: sxGridContainer }, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.container, { className: clsx(classes === null || classes === void 0 ? void 0 : classes.root, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.container) }), fileObjects.map((fileObject, i) => {
+        return (React.createElement(Box, Object.assign({}, previewGridProps === null || previewGridProps === void 0 ? void 0 : previewGridProps.item, { key: i, sx: sxImageContainer, className: clsx(classes === null || classes === void 0 ? void 0 : classes.imageContainer, previewGridClasses === null || previewGridClasses === void 0 ? void 0 : previewGridClasses.item) }),
             getPreviewIcon(fileObject, classes),
-            showFileNames ? (react_1.default.createElement(Typography_1.default, { component: "p" }, fileObject.file.name)) : null,
-            react_1.default.createElement(Fab_1.default, { onClick: handleRemove(i), "aria-label": "Delete", sx: sxRemoveButton, className: classes === null || classes === void 0 ? void 0 : classes.removeButton },
-                react_1.default.createElement(Delete_1.default, null))));
+            showFileNames ? (React.createElement(Typography, { component: "p" }, fileObject.file.name)) : null,
+            React.createElement(Fab, { onClick: handleRemove(i), "aria-label": "Delete", sx: sxRemoveButton, className: classes === null || classes === void 0 ? void 0 : classes.removeButton },
+                React.createElement(DeleteIcon, null))));
     })));
 }
 PreviewList.propTypes = {
-    classes: prop_types_1.default.object,
-    fileObjects: prop_types_1.default.arrayOf(prop_types_1.default.object).isRequired,
-    getPreviewIcon: prop_types_1.default.func.isRequired,
-    handleRemove: prop_types_1.default.func.isRequired,
-    previewChipProps: prop_types_1.default.object,
-    previewGridClasses: prop_types_1.default.object,
-    previewGridProps: prop_types_1.default.object,
-    showFileNames: prop_types_1.default.bool,
-    useChipsForPreview: prop_types_1.default.bool,
+    classes: PropTypes.object,
+    fileObjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getPreviewIcon: PropTypes.func.isRequired,
+    handleRemove: PropTypes.func.isRequired,
+    previewChipProps: PropTypes.object,
+    previewGridClasses: PropTypes.object,
+    previewGridProps: PropTypes.object,
+    showFileNames: PropTypes.bool,
+    useChipsForPreview: PropTypes.bool,
 };
-exports.default = PreviewList;
+export default PreviewList;
 //# sourceMappingURL=PreviewList.js.map

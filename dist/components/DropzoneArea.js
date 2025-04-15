@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const prop_types_1 = (0, tslib_1.__importDefault)(require("prop-types"));
-const react_1 = (0, tslib_1.__importStar)(require("react"));
-const helpers_1 = require("../helpers");
-const DropzoneAreaBase_1 = (0, tslib_1.__importDefault)(require("./DropzoneAreaBase"));
+import { __awaiter, __rest } from "tslib";
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import { createFileFromUrl, readFile } from "../helpers";
+import DropzoneAreaBase from "./DropzoneAreaBase";
 const splitDropzoneAreaProps = (props) => {
-    const { clearOnUnmount, initialFiles, onChange, onDelete } = props, dropzoneAreaBaseProps = (0, tslib_1.__rest)(props, ["clearOnUnmount", "initialFiles", "onChange", "onDelete"]);
+    const { clearOnUnmount, initialFiles, onChange, onDelete } = props, dropzoneAreaBaseProps = __rest(props, ["clearOnUnmount", "initialFiles", "onChange", "onDelete"]);
     const dropzoneAreaProps = {
         clearOnUnmount,
         initialFiles,
@@ -26,7 +24,7 @@ const splitDropzoneAreaProps = (props) => {
  *
  * **Note** To listen to file changes use `onChange` event handler and notice that `onDelete` returns a `File` instance instead of `FileObject`.
  */
-class DropzoneArea extends react_1.PureComponent {
+class DropzoneArea extends PureComponent {
     constructor() {
         super(...arguments);
         this.state = {
@@ -39,18 +37,18 @@ class DropzoneArea extends react_1.PureComponent {
                 onChange(fileObjects.map((fileObject) => fileObject.file));
             }
         };
-        this.loadInitialFiles = () => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        this.loadInitialFiles = () => __awaiter(this, void 0, void 0, function* () {
             const { initialFiles = DropzoneArea.defaultProps.initialFiles } = this.props;
             try {
-                const fileObjs = yield Promise.all(initialFiles.map((initialFile) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+                const fileObjs = yield Promise.all(initialFiles.map((initialFile) => __awaiter(this, void 0, void 0, function* () {
                     let file;
                     if (typeof initialFile === "string") {
-                        file = yield (0, helpers_1.createFileFromUrl)(initialFile);
+                        file = yield createFileFromUrl(initialFile);
                     }
                     else {
                         file = initialFile;
                     }
-                    const data = yield (0, helpers_1.readFile)(file);
+                    const data = yield readFile(file);
                     const fileObj = { file, data };
                     return fileObj;
                 })));
@@ -63,7 +61,7 @@ class DropzoneArea extends react_1.PureComponent {
                 console.log(err);
             }
         });
-        this.addFiles = (newFileObjects) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        this.addFiles = (newFileObjects) => __awaiter(this, void 0, void 0, function* () {
             const { filesLimit = DropzoneArea.defaultProps.filesLimit } = this.props;
             // Update component state
             this.setState((prevState) => {
@@ -107,14 +105,14 @@ class DropzoneArea extends react_1.PureComponent {
     render() {
         const [, dropzoneAreaBaseProps] = splitDropzoneAreaProps(this.props);
         const { fileObjects } = this.state;
-        return (react_1.default.createElement(DropzoneAreaBase_1.default, Object.assign({}, dropzoneAreaBaseProps, { fileObjects: fileObjects, onAdd: this.addFiles, onDelete: this.deleteFile })));
+        return (React.createElement(DropzoneAreaBase, Object.assign({}, dropzoneAreaBaseProps, { fileObjects: fileObjects, onAdd: this.addFiles, onDelete: this.deleteFile })));
     }
 }
-DropzoneArea.propTypes = Object.assign(Object.assign({}, DropzoneAreaBase_1.default.propTypes), { clearOnUnmount: prop_types_1.default.bool, initialFiles: prop_types_1.default.arrayOf(prop_types_1.default.oneOfType([prop_types_1.default.string, prop_types_1.default.any])), filesLimit: prop_types_1.default.number, onChange: prop_types_1.default.func, onDelete: prop_types_1.default.func });
+DropzoneArea.propTypes = Object.assign(Object.assign({}, DropzoneAreaBase.propTypes), { clearOnUnmount: PropTypes.bool, initialFiles: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.any])), filesLimit: PropTypes.number, onChange: PropTypes.func, onDelete: PropTypes.func });
 DropzoneArea.defaultProps = {
     clearOnUnmount: true,
     filesLimit: 3,
     initialFiles: [],
 };
-exports.default = DropzoneArea;
+export default DropzoneArea;
 //# sourceMappingURL=DropzoneArea.js.map

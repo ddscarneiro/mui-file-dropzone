@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const prop_types_1 = (0, tslib_1.__importDefault)(require("prop-types"));
-const react_1 = (0, tslib_1.__importStar)(require("react"));
-const helpers_1 = require("../helpers");
-const DropzoneDialogBase_1 = (0, tslib_1.__importDefault)(require("./DropzoneDialogBase"));
+import { __awaiter } from "tslib";
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import { createFileFromUrl, readFile } from "../helpers";
+import DropzoneDialogBase from "./DropzoneDialogBase";
 /**
  * This component provides an uncontrolled version of the DropzoneDialogBase component.
  *
@@ -12,7 +10,7 @@ const DropzoneDialogBase_1 = (0, tslib_1.__importDefault)(require("./DropzoneDia
  *
  * **Note** The `onSave` handler also returns `File[]` with all the accepted files.
  */
-class DropzoneDialog extends react_1.PureComponent {
+class DropzoneDialog extends PureComponent {
     constructor() {
         super(...arguments);
         this.state = {
@@ -25,18 +23,18 @@ class DropzoneDialog extends react_1.PureComponent {
                 onChange(fileObjects.map((fileObject) => fileObject.file));
             }
         };
-        this.loadInitialFiles = () => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        this.loadInitialFiles = () => __awaiter(this, void 0, void 0, function* () {
             const { initialFiles = DropzoneDialog.defaultProps.initialFiles } = this.props;
             try {
-                const fileObjs = yield Promise.all(initialFiles.map((initialFile) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+                const fileObjs = yield Promise.all(initialFiles.map((initialFile) => __awaiter(this, void 0, void 0, function* () {
                     let file;
                     if (typeof initialFile === "string") {
-                        file = yield (0, helpers_1.createFileFromUrl)(initialFile);
+                        file = yield createFileFromUrl(initialFile);
                     }
                     else {
                         file = initialFile;
                     }
-                    const data = yield (0, helpers_1.readFile)(file);
+                    const data = yield readFile(file);
                     const fileObj = { file, data };
                     return fileObj;
                 })));
@@ -49,7 +47,7 @@ class DropzoneDialog extends react_1.PureComponent {
                 console.log(err);
             }
         });
-        this.addFiles = (newFileObjects) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        this.addFiles = (newFileObjects) => __awaiter(this, void 0, void 0, function* () {
             const { filesLimit = DropzoneDialog.defaultProps.filesLimit } = this.props;
             // Update component state
             this.setState((state) => {
@@ -111,14 +109,14 @@ class DropzoneDialog extends react_1.PureComponent {
     }
     render() {
         const { fileObjects } = this.state;
-        return (react_1.default.createElement(DropzoneDialogBase_1.default, Object.assign({}, this.props, { fileObjects: fileObjects, onAdd: this.addFiles, onDelete: this.deleteFile, onClose: this.handleClose, onSave: this.handleSave })));
+        return (React.createElement(DropzoneDialogBase, Object.assign({}, this.props, { fileObjects: fileObjects, onAdd: this.addFiles, onDelete: this.deleteFile, onClose: this.handleClose, onSave: this.handleSave })));
     }
 }
-DropzoneDialog.propTypes = Object.assign(Object.assign({}, DropzoneDialogBase_1.default.propTypes), { clearOnUnmount: prop_types_1.default.bool, filesLimit: prop_types_1.default.number, initialFiles: prop_types_1.default.arrayOf(prop_types_1.default.oneOfType([prop_types_1.default.string, prop_types_1.default.any])), onSave: prop_types_1.default.func });
+DropzoneDialog.propTypes = Object.assign(Object.assign({}, DropzoneDialogBase.propTypes), { clearOnUnmount: PropTypes.bool, filesLimit: PropTypes.number, initialFiles: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.any])), onSave: PropTypes.func });
 DropzoneDialog.defaultProps = {
     clearOnUnmount: true,
     filesLimit: 3,
     initialFiles: [],
 };
-exports.default = DropzoneDialog;
+export default DropzoneDialog;
 //# sourceMappingURL=DropzoneDialog.js.map

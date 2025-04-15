@@ -1,31 +1,28 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileObjectShape = void 0;
-const tslib_1 = require("tslib");
-const AttachFile_1 = (0, tslib_1.__importDefault)(require("@mui/icons-material/AttachFile"));
-const CloudUpload_1 = (0, tslib_1.__importDefault)(require("@mui/icons-material/CloudUpload"));
-const material_1 = require("@mui/material");
-const Snackbar_1 = (0, tslib_1.__importDefault)(require("@mui/material/Snackbar"));
-const Typography_1 = (0, tslib_1.__importDefault)(require("@mui/material/Typography"));
-const clsx_1 = (0, tslib_1.__importDefault)(require("clsx"));
-const prop_types_1 = (0, tslib_1.__importDefault)(require("prop-types"));
-const react_1 = (0, tslib_1.__importStar)(require("react"));
-const react_dropzone_1 = (0, tslib_1.__importDefault)(require("react-dropzone"));
-const helpers_1 = require("../helpers");
-const withTheme_1 = require("../withTheme");
-const PreviewList_1 = (0, tslib_1.__importDefault)(require("./PreviewList"));
-const SnackbarContentWrapper_1 = (0, tslib_1.__importDefault)(require("./SnackbarContentWrapper"));
+import { __awaiter } from "tslib";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Box } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Typography from "@mui/material/Typography";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React, { Fragment, PureComponent, } from "react";
+import Dropzone from "react-dropzone";
+import { convertBytesToMbsOrKbs, isImage, readFile } from "../helpers";
+import { withTheme } from "../withTheme";
+import PreviewList from "./PreviewList";
+import SnackbarContentWrapper from "./SnackbarContentWrapper";
 const defaultSnackbarAnchorOrigin = {
     horizontal: "left",
     vertical: "bottom",
 };
 const defaultGetPreviewIcon = (fileObject, classes) => {
     const { data, file } = fileObject || {};
-    if ((0, helpers_1.isImage)(file)) {
+    if (isImage(file)) {
         const src = typeof data === "string" ? data : undefined;
-        return react_1.default.createElement("img", { className: classes === null || classes === void 0 ? void 0 : classes.image, role: "presentation", src: src });
+        return React.createElement("img", { className: classes === null || classes === void 0 ? void 0 : classes.image, role: "presentation", src: src });
     }
-    return (react_1.default.createElement(AttachFile_1.default, { sx: {
+    return (React.createElement(AttachFileIcon, { sx: {
             height: 100,
             width: "initial",
             maxWidth: "100%",
@@ -38,14 +35,14 @@ const defaultGetPreviewIcon = (fileObject, classes) => {
             opacity: 1,
         }, className: classes === null || classes === void 0 ? void 0 : classes.image }));
 };
-exports.FileObjectShape = prop_types_1.default.shape({
-    file: prop_types_1.default.object,
-    data: prop_types_1.default.any,
+export const FileObjectShape = PropTypes.shape({
+    file: PropTypes.object,
+    data: PropTypes.any,
 });
 /**
  * This components creates a Material-UI Dropzone, with previews and snackbar notifications.
  */
-class DropzoneAreaBase extends react_1.PureComponent {
+class DropzoneAreaBase extends PureComponent {
     constructor() {
         super(...arguments);
         this.state = {
@@ -53,7 +50,7 @@ class DropzoneAreaBase extends react_1.PureComponent {
             snackbarMessage: "",
             snackbarVariant: "success",
         };
-        this.handleDropAccepted = (acceptedFiles, evt) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        this.handleDropAccepted = (acceptedFiles, evt) => __awaiter(this, void 0, void 0, function* () {
             const { fileObjects, filesLimit = DropzoneAreaBase.defaultProps.filesLimit, getFileAddedMessage = DropzoneAreaBase.defaultProps.getFileAddedMessage, getFileLimitExceedMessage = DropzoneAreaBase.defaultProps
                 .getFileLimitExceedMessage, onAdd, onDrop, } = this.props;
             if (filesLimit > 1 &&
@@ -70,8 +67,8 @@ class DropzoneAreaBase extends react_1.PureComponent {
                 onDrop(acceptedFiles, evt);
             }
             // Retrieve fileObjects data
-            const fileObjs = yield Promise.all(acceptedFiles.map((file) => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
-                const data = yield (0, helpers_1.readFile)(file);
+            const fileObjs = yield Promise.all(acceptedFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
+                const data = yield readFile(file);
                 return {
                     file,
                     data,
@@ -191,64 +188,64 @@ class DropzoneAreaBase extends react_1.PureComponent {
         const isMultiple = filesLimit > 1;
         const previewsVisible = showPreviews && fileObjects.length > 0;
         const previewsInDropzoneVisible = showPreviewsInDropzone && fileObjects.length > 0;
-        return (react_1.default.createElement(react_1.Fragment, null,
-            react_1.default.createElement(react_dropzone_1.default, Object.assign({}, dropzoneProps, { accept: acceptFiles, onDropAccepted: this.handleDropAccepted, onDropRejected: this.handleDropRejected, maxSize: maxFileSize, multiple: isMultiple }), ({ getRootProps, getInputProps, isDragActive, isDragReject }) => {
+        return (React.createElement(Fragment, null,
+            React.createElement(Dropzone, Object.assign({}, dropzoneProps, { accept: acceptFiles, onDropAccepted: this.handleDropAccepted, onDropRejected: this.handleDropRejected, maxSize: maxFileSize, multiple: isMultiple }), ({ getRootProps, getInputProps, isDragActive, isDragReject }) => {
                 const isActive = isDragActive;
                 const isInvalid = !disableRejectionFeedback && isDragReject;
-                return (react_1.default.createElement(material_1.Box, Object.assign({ sx: Object.assign(Object.assign(Object.assign({}, this.defaultSx.root), (isActive ? this.defaultSx.active : {})), (isInvalid ? this.defaultSx.invalid : {})) }, getRootProps({
-                    className: (0, clsx_1.default)(classes.root, dropzoneClass, isActive && classes.active, isInvalid && classes.invalid),
+                return (React.createElement(Box, Object.assign({ sx: Object.assign(Object.assign(Object.assign({}, this.defaultSx.root), (isActive ? this.defaultSx.active : {})), (isInvalid ? this.defaultSx.invalid : {})) }, getRootProps({
+                    className: clsx(classes.root, dropzoneClass, isActive && classes.active, isInvalid && classes.invalid),
                 })),
-                    react_1.default.createElement("input", Object.assign({}, getInputProps(inputProps))),
-                    react_1.default.createElement(material_1.Box, { sx: this.defaultSx.textContainer, className: classes.textContainer },
-                        react_1.default.createElement(Typography_1.default, { variant: "h5", component: "p", sx: this.defaultSx.text, className: (0, clsx_1.default)(classes.text, dropzoneParagraphClass) }, dropzoneText),
-                        Icon ? (react_1.default.createElement(Icon, { sx: this.defaultSx.icon, className: classes.icon })) : (react_1.default.createElement(CloudUpload_1.default, { sx: this.defaultSx.icon, className: classes.icon }))),
-                    previewsInDropzoneVisible ? (react_1.default.createElement(PreviewList_1.default, { fileObjects: fileObjects, handleRemove: this.handleRemove, getPreviewIcon: getPreviewIcon, showFileNames: showFileNames, useChipsForPreview: useChipsForPreview, previewChipProps: previewChipProps, previewGridClasses: previewGridClasses, previewGridProps: previewGridProps })) : null));
+                    React.createElement("input", Object.assign({}, getInputProps(inputProps))),
+                    React.createElement(Box, { sx: this.defaultSx.textContainer, className: classes.textContainer },
+                        React.createElement(Typography, { variant: "h5", component: "p", sx: this.defaultSx.text, className: clsx(classes.text, dropzoneParagraphClass) }, dropzoneText),
+                        Icon ? (React.createElement(Icon, { sx: this.defaultSx.icon, className: classes.icon })) : (React.createElement(CloudUploadIcon, { sx: this.defaultSx.icon, className: classes.icon }))),
+                    previewsInDropzoneVisible ? (React.createElement(PreviewList, { fileObjects: fileObjects, handleRemove: this.handleRemove, getPreviewIcon: getPreviewIcon, showFileNames: showFileNames, useChipsForPreview: useChipsForPreview, previewChipProps: previewChipProps, previewGridClasses: previewGridClasses, previewGridProps: previewGridProps })) : null));
             }),
-            previewsVisible ? (react_1.default.createElement(react_1.Fragment, null,
-                react_1.default.createElement(Typography_1.default, { variant: "subtitle1", component: "span" }, previewText),
-                react_1.default.createElement(PreviewList_1.default, { fileObjects: fileObjects, handleRemove: this.handleRemove, getPreviewIcon: getPreviewIcon, showFileNames: showFileNamesInPreview, useChipsForPreview: useChipsForPreview, previewChipProps: previewChipProps, previewGridClasses: previewGridClasses, previewGridProps: previewGridProps }))) : null,
+            previewsVisible ? (React.createElement(Fragment, null,
+                React.createElement(Typography, { variant: "subtitle1", component: "span" }, previewText),
+                React.createElement(PreviewList, { fileObjects: fileObjects, handleRemove: this.handleRemove, getPreviewIcon: getPreviewIcon, showFileNames: showFileNamesInPreview, useChipsForPreview: useChipsForPreview, previewChipProps: previewChipProps, previewGridClasses: previewGridClasses, previewGridProps: previewGridProps }))) : null,
             (typeof showAlerts === "boolean" && showAlerts) ||
-                (Array.isArray(showAlerts) && showAlerts.includes(snackbarVariant)) ? (react_1.default.createElement(Snackbar_1.default, Object.assign({ anchorOrigin: defaultSnackbarAnchorOrigin, autoHideDuration: 6000 }, alertSnackbarProps, { open: openSnackBar, onClose: this.handleCloseSnackbar }),
-                react_1.default.createElement(SnackbarContentWrapper_1.default, { onClose: this.handleCloseSnackbar, variant: snackbarVariant, message: snackbarMessage }))) : null));
+                (Array.isArray(showAlerts) && showAlerts.includes(snackbarVariant)) ? (React.createElement(Snackbar, Object.assign({ anchorOrigin: defaultSnackbarAnchorOrigin, autoHideDuration: 6000 }, alertSnackbarProps, { open: openSnackBar, onClose: this.handleCloseSnackbar }),
+                React.createElement(SnackbarContentWrapper, { onClose: this.handleCloseSnackbar, variant: snackbarVariant, message: snackbarMessage }))) : null));
     }
 }
 DropzoneAreaBase.propTypes = {
-    classes: prop_types_1.default.object,
-    acceptedFiles: prop_types_1.default.arrayOf(prop_types_1.default.string),
-    filesLimit: prop_types_1.default.number,
-    Icon: prop_types_1.default.elementType,
-    fileObjects: prop_types_1.default.arrayOf(exports.FileObjectShape),
-    maxFileSize: prop_types_1.default.number,
-    dropzoneText: prop_types_1.default.string,
-    dropzoneClass: prop_types_1.default.string,
-    dropzoneParagraphClass: prop_types_1.default.string,
-    disableRejectionFeedback: prop_types_1.default.bool,
-    showPreviews: prop_types_1.default.bool,
-    showPreviewsInDropzone: prop_types_1.default.bool,
-    showFileNames: prop_types_1.default.bool,
-    showFileNamesInPreview: prop_types_1.default.bool,
-    useChipsForPreview: prop_types_1.default.bool,
-    previewChipProps: prop_types_1.default.object,
-    previewGridClasses: prop_types_1.default.object,
-    previewGridProps: prop_types_1.default.object,
-    previewText: prop_types_1.default.string,
-    showAlerts: prop_types_1.default.oneOfType([
-        prop_types_1.default.bool,
-        prop_types_1.default.arrayOf(prop_types_1.default.oneOf(["error", "success", "info", "warning"])),
+    classes: PropTypes.object,
+    acceptedFiles: PropTypes.arrayOf(PropTypes.string),
+    filesLimit: PropTypes.number,
+    Icon: PropTypes.elementType,
+    fileObjects: PropTypes.arrayOf(FileObjectShape),
+    maxFileSize: PropTypes.number,
+    dropzoneText: PropTypes.string,
+    dropzoneClass: PropTypes.string,
+    dropzoneParagraphClass: PropTypes.string,
+    disableRejectionFeedback: PropTypes.bool,
+    showPreviews: PropTypes.bool,
+    showPreviewsInDropzone: PropTypes.bool,
+    showFileNames: PropTypes.bool,
+    showFileNamesInPreview: PropTypes.bool,
+    useChipsForPreview: PropTypes.bool,
+    previewChipProps: PropTypes.object,
+    previewGridClasses: PropTypes.object,
+    previewGridProps: PropTypes.object,
+    previewText: PropTypes.string,
+    showAlerts: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.arrayOf(PropTypes.oneOf(["error", "success", "info", "warning"])),
     ]),
-    alertSnackbarProps: prop_types_1.default.object,
-    dropzoneProps: prop_types_1.default.object,
-    inputProps: prop_types_1.default.object,
-    getFileLimitExceedMessage: prop_types_1.default.func,
-    getFileAddedMessage: prop_types_1.default.func,
-    getFileRemovedMessage: prop_types_1.default.func,
-    getDropRejectMessage: prop_types_1.default.func,
-    getPreviewIcon: prop_types_1.default.func,
-    onAdd: prop_types_1.default.func,
-    onDelete: prop_types_1.default.func,
-    onDrop: prop_types_1.default.func,
-    onDropRejected: prop_types_1.default.func,
-    onAlert: prop_types_1.default.func,
+    alertSnackbarProps: PropTypes.object,
+    dropzoneProps: PropTypes.object,
+    inputProps: PropTypes.object,
+    getFileLimitExceedMessage: PropTypes.func,
+    getFileAddedMessage: PropTypes.func,
+    getFileRemovedMessage: PropTypes.func,
+    getDropRejectMessage: PropTypes.func,
+    getPreviewIcon: PropTypes.func,
+    onAdd: PropTypes.func,
+    onDelete: PropTypes.func,
+    onDrop: PropTypes.func,
+    onDropRejected: PropTypes.func,
+    onAlert: PropTypes.func,
 };
 DropzoneAreaBase.defaultProps = {
     acceptedFiles: [],
@@ -286,13 +283,13 @@ DropzoneAreaBase.defaultProps = {
         if (rejectedFile.size > maxFileSize) {
             message +=
                 "File is too big. Size limit is " +
-                    (0, helpers_1.convertBytesToMbsOrKbs)(maxFileSize) +
+                    convertBytesToMbsOrKbs(maxFileSize) +
                     ". ";
         }
         return message;
     }),
 };
 // @ts-expect-error
-const ThemedDropzoneAreaBase = (0, withTheme_1.withTheme)(DropzoneAreaBase);
-exports.default = ThemedDropzoneAreaBase;
+const ThemedDropzoneAreaBase = withTheme(DropzoneAreaBase);
+export default ThemedDropzoneAreaBase;
 //# sourceMappingURL=DropzoneAreaBase.js.map
