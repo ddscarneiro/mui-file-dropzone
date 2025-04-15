@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import React, { JSX, PureComponent } from "react";
 
 import DropzoneAreaBase, { DropzoneAreaBaseProps } from "./DropzoneAreaBase";
 
@@ -162,7 +162,7 @@ class DropzoneDialogBase extends PureComponent<DropzoneDialogBaseProps> {
         <DialogTitle>{dialogTitle}</DialogTitle>
 
         <DialogContent>
-          <DropzoneAreaBase {...dropzoneAreaProps} />
+          <DropzoneAreaBase {...(dropzoneAreaProps as any)} />
         </DialogContent>
 
         <DialogActions>

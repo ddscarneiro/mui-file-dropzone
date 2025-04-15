@@ -198,55 +198,6 @@ export declare type DropzoneAreaBaseProps = {
      */
     getPreviewIcon?: PreviewListProps["getPreviewIcon"];
 };
-declare const ThemedDropzoneAreaBase: React.ForwardRefExoticComponent<{
-    classes?: Partial<DropzoneAreaBaseClasses> | undefined;
-    onDelete?: ((deletedFileObject: FileObject, index: number) => void) | undefined;
-    onDrop?: ((droppedFiles: File[], event: DropEvent) => void) | undefined;
-    fileObjects: FileObject[];
-    showFileNames?: boolean | undefined;
-    useChipsForPreview?: boolean | undefined;
-    previewChipProps?: ChipProps<"div", {}> | undefined;
-    previewGridClasses?: {
-        container?: string | undefined;
-        item?: string | undefined;
-        image?: string | undefined;
-    } | undefined;
-    previewGridProps?: {
-        container?: GridProps<"div", {}> | undefined;
-        item?: GridProps<"div", {}> | undefined;
-    } | undefined;
-    getPreviewIcon?: ((fileObject: FileObject, classes: {
-        image?: string | undefined;
-        imageContainer?: string | undefined;
-        removeButton?: string | undefined;
-        root?: string | undefined;
-    } | undefined) => JSX.Element) | undefined;
-    getFileLimitExceedMessage?: ((filesLimit: number) => string) | undefined;
-    getFileAddedMessage?: ((fileName: string) => string) | undefined;
-    getFileRemovedMessage?: ((fileName: string) => string) | undefined;
-    getDropRejectMessage?: ((rejectedFile: File, acceptedFiles: string[], maxFileSize: number) => string) | undefined;
-    onAlert?: ((message: string, variant: AlertType) => void) | undefined;
-    acceptedFiles?: string[] | undefined;
-    filesLimit?: number | undefined;
-    Icon?: (import("@mui/material/OverridableComponent").OverridableComponent<import("@mui/material").SvgIconTypeMap<{}, "svg">> & {
-        muiName: string;
-    }) | undefined;
-    maxFileSize?: number | undefined;
-    dropzoneText?: string | undefined;
-    previewText?: string | undefined;
-    showPreviews?: boolean | undefined;
-    showPreviewsInDropzone?: boolean | undefined;
-    showFileNamesInPreview?: boolean | undefined;
-    showAlerts?: boolean | AlertType[] | undefined;
-    alertSnackbarProps?: SnackbarProps | undefined;
-    dropzoneProps?: DropzoneProps | undefined;
-    inputProps?: React.HTMLProps<HTMLInputElement> | undefined;
-    clearOnUnmount?: boolean | undefined;
-    dropzoneClass?: string | undefined;
-    dropzoneParagraphClass?: string | undefined;
-    disableRejectionFeedback?: boolean | undefined;
-    onAdd?: ((newFiles: FileObject[]) => void) | undefined;
-    onDropRejected?: ((rejectedFiles: File[], event: DropEvent) => void) | undefined;
-} & React.RefAttributes<unknown>>;
+declare const ThemedDropzoneAreaBase: React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<unknown>>;
 export default ThemedDropzoneAreaBase;
 //# sourceMappingURL=DropzoneAreaBase.d.ts.map

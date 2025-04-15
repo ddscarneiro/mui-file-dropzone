@@ -1,7 +1,7 @@
-/// <reference types="react" />
 import { BoxProps } from "@mui/material/Box";
 import { ChipProps } from "@mui/material/Chip";
 import PropTypes from "prop-types";
+import { JSX } from "react";
 import { FileObject } from "../types";
 export interface PreviewListProps {
     classes?: {
